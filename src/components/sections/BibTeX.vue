@@ -1,91 +1,91 @@
-<script>
-export default {
-  data() {
-    return {
-      bibtex: [
-        "@article{junyaohu2023template,",
-        "    title={Academic Project Page Template Vue},",
-        "    author={Hu, Junyao},",
-        "    journal={GitHub},",
-        "    year={2023}",
-        "}",
-      ],
-    }
-  },
-  methods: {
-    copyVal() {
-      let oInput = document.createElement('textarea');
-      let text = document.getElementById('bibtex').innerText;
-      oInput.value = text;
-      document.body.appendChild(oInput);
-      oInput.select();
-      document.execCommand('Copy');
-      this.$message.success('Copy Successfully');
-      oInput.remove();
-    }
-  }
-}
+<script setup>
+import { ref } from 'vue'
+import SectionWrapper from '../SectionWrapper.vue';
 
+const bibtex = `@article{junyaohu2023template,
+    title={Academic Project Page Template Vue},
+    author={Hu, Junyao},
+    journal={GitHub},
+    year={2023}
+}`
+
+const copied = ref(false)
+
+function copyBibtex() {
+  navigator.clipboard.writeText(bibtex).then(() => {
+    copied.value = true
+    setTimeout(() => { copied.value = false }, 2000)
+  })
+}
 </script>
 
 <template>
-  <div>
-    <el-divider />
-      
-      <el-row justify="center">
-        <h1 class="section-title">BibTeX</h1>
-      </el-row>
-      
-      <el-row justify="center">
-        <el-col class='bibtex' :xs="24" :sm="20" :md="14" :lg="12" :xl="12" @click="copyVal()" >
-          <div style="text-align: center; color: var(--el-text-color-secondary); margin-top: 20px;">🖱️ Click here to copy BibTex.</div> 
-          <el-row>
-              <el-scrollbar style="margin: 0px 20px 5px 20px;">
-                <pre id="bibtex"><code v-for="b in bibtex">{{ b }}<br/></code></pre>
-              </el-scrollbar>
-          </el-row>
-        </el-col>
-      </el-row>
-
-  </div>
+  <SectionWrapper id="bibtex" title="BibTeX">
+    <div class="bibtex-card">
+      <div class="bibtex-header">
+        <span class="bibtex-label">Citation</span>
+        <button class="copy-btn" @click="copyBibtex">
+          {{ copied ? 'Copied!' : 'Copy' }}
+        </button>
+      </div>
+      <pre class="bibtex-code"><code>{{ bibtex }}</code></pre>
+    </div>
+  </SectionWrapper>
 </template>
 
 <style scoped>
+.bibtex-card {
+  background: var(--bg-code);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
 
-.scrollbar-flex-content {
+.bibtex-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-card);
 }
 
-/* 卡片属性 */
-.bibtex {
-  margin: 20px 0px;
-  padding-top: 5px;
-  box-shadow: var(--el-box-shadow-light); 
-  border-radius: 10px;
+.bibtex-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-/* 卡片悬浮 */
-.bibtex:hover {
-  box-shadow: var(--el-box-shadow); 
+.copy-btn {
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.copy-btn:hover {
+  background: var(--accent-subtle);
 }
 
-/* 卡片点击 */
-.bibtex:active{
-  box-shadow: var(--el-box-shadow-lighter); 
-}
-
-pre {
+.bibtex-code {
+  margin: 0;
+  padding: 16px 20px;
+  background: transparent;
   border: none;
-  border-radius: 0px;
-  padding: 10px;
-  background: none;
+  border-radius: 0;
+  overflow-x: auto;
 }
 
-pre code {
-  font-size: 18px;
-  background: #ffffff;
+.bibtex-code code {
+  font-size: 14px;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre;
 }
-
-
-
 </style>

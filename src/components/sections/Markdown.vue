@@ -1,16 +1,19 @@
 <script setup>
 import page from '../mds/md.mdx';
+import SectionWrapper from '../SectionWrapper.vue';
 </script>
 
 <template>
-  <div>
-    <el-divider />
-
-    <el-row justify="center">
-        <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
-            <page />
-        </el-col>
-    </el-row>
-
-  </div>
+  <SectionWrapper id="method" title="Method">
+    <div class="md-content">
+      <page />
+    </div>
+  </SectionWrapper>
 </template>
+
+<style scoped>
+.md-content {
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+</style>

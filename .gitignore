@@ -27,3 +27,9 @@ coverage
 *.sln
 *.sw?
 yarn.lock
+
+# Original uncompressed videos (keep locally, do not commit)
+/public/video/01.mp4
+/public/video/02.mp4
+/public/video/Edited/
+/public/video/video.mp4

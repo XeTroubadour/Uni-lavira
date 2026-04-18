@@ -1,317 +1,288 @@
 <script lang="ts" setup>
 
 import { ElIcon } from 'element-plus'
-import { Document, Files, MagicStick, Picture, DataAnalysis, Film } from '@element-plus/icons-vue'
+import { Document, Files, MagicStick, Film, Link as LinkIcon } from '@element-plus/icons-vue'
 
-// logo地址，没有则置为""即可
-const logo = './logo.png'
+// Badge
+const badge = 'Technical Report'
 
 // 标题
 const title = 'Academic Project Page Template'
 
-// 标题颜色
-const title_color = '#000000'
+// 副标题
+const subtitle = 'A modern dark-themed project page for research papers'
 
-// 标题补充，没有则置为''即可
-const title_supp = ' (Vue based)'
-
-// 标题补充颜色
-const title_supp_color = '#42B883'
-
-// 按钮颜色
-const btn_color = '#444444'
-
-// 作者清单（包含作者姓名、头像、主页、地址序号）
+// 作者清单
 const authors = [
-  {
-    name: "Your Name",
-    icon: "./icon/junyaohu.jpg",
-    homepage: "https://junyaohu.github.io/",
-    address_flag: "1,#"
-  },
-  {
-    name: "Anya Forger",
-    icon: "./icon/anya.jpg",
-    homepage: "https://www.bilibili.com/video/BV1jv4y1P7Bb",
-    address_flag: "2,#"
-  },
-  {
-    name: "BugCat Capoo",
-    icon: "./icon/capoo.webp",
-    homepage: "https://zh.moegirl.org.cn/%E7%8C%AB%E7%8C%AB%E8%99%AB%E5%92%96%E6%B3%A2",
-    address_flag: "1,*"
-  },
+  { name: "Author One", homepage: "#", flags: "1,*" },
+  { name: "Author Two", homepage: "#", flags: "2" },
+  { name: "Author Three", homepage: "#", flags: "1" },
 ]
 
-// 地址清单（包含地址名称、头像、主页、地址序号）
-const addresses = [
-  {
-    address_flag: "1",
-    name: "Home University",
-    icon: "./icon/home.png",
-    homepage: "https://github.com/hmuniversity"
-  },
-  {
-    address_flag: "2",
-    name: "IKUN University",
-    icon: "./icon/ikun.avif",
-    homepage: "https://www.bilibili.com/video/BV178411Y7QB"
-  },
+// 单位清单
+const affiliations = [
+  { flag: "1", name: "University A" },
+  { flag: "2", name: "University B" },
 ]
 
-// 共一和通讯提示
-const con_and_corresponding_author = 
-  "#: Equal Contribution. *: Corresponding Author."
+// 脚注
+const footnote = "* Corresponding Author"
 
-// 最新消息
-const news = "🔥 [2024-12-15] This template project is still under development."
-
-// 强调内容
-const emphases = [
-  "🎉 [ABCD 2024] Poster",
-  "🥰 欢迎关注“减论”微信公众号/B站/知乎/小红书",
-  "传递人工智能算法科普教育的减约理解",
-  "提升信息效率及认知维度"
-]
-
-// 提供引导资料链接
+// 按钮
 const buttons = [
-  {
-    disabled: true,
-    name: "Paper",
-    component: Document,
-  },
-  {
-    disabled: true,
-    name: "中译版",
-    component: Document,
-  },
-  {
-    disabled: false,
-    name: "Code",
-    link: "https://github.com/JunyaoHu/academic-project-page-template-vue",
-    component: Files,
-  },
-  {
-    disabled: false,
-    name: "Demo",
-    link: "https://junyaohu.github.io/academic-project-page-template-vue",
-    component: MagicStick,
-  },
-  {
-    disabled: true,
-    name: "Poster",
-    component: Picture,
-  },
-  {
-    disabled: true,
-    name: "Slide",
-    component: DataAnalysis,
-  },
-  {
-    disabled: false,
-    name: "Video (减论)",
-    link: "https://www.bilibili.com/video/BV15XkgYiE73/",
-    component: Film,
-  },
-  {
-    disabled: false,
-    name: "Video (Tutorial)",
-    link: "https://www.bilibili.com/video/BV1oUrfYzEqZ",
-    component: Film,
-  },
+  { name: "Paper", href: "#", icon: Document },
+  { name: "arXiv", href: "#", icon: Document },
+  { name: "Code", href: "https://github.com/JunyaoHu/academic-project-page-template-vue", icon: Files },
+  { name: "Demo", href: "#", icon: MagicStick },
+  { name: "Video", href: "#", icon: Film },
+  { name: "BibTeX", href: "#bibtex", icon: LinkIcon },
+]
+
+// 统计数字
+const stats = [
+  { value: '12', label: 'Tasks' },
+  { value: '5', label: 'Benchmarks' },
+  { value: '100K+', label: 'Trajectories' },
+  { value: '50+', label: 'Scenes' },
 ]
 
 </script>
 
 <template>
-  <div>
+  <section id="overview" class="hero">
+    <div class="hero-inner">
 
-    <!-- 最新消息提示 -->
-    <el-row justify="center">
-      <el-col :span="24">
-        <el-alert title="🔥 This template is still under development." type="success" />
-      </el-col>
-    </el-row>
+      <!-- Badge -->
+      <div class="hero-badge">{{ badge }}</div>
 
-    <!-- 文章logo -->
-    <el-row v-if="logo" justify="center">
-      <el-image :src="logo" class="logo" fit="cover" />
-    </el-row>
+      <!-- Title -->
+      <h1 class="hero-title">{{ title }}</h1>
 
-    <!-- 文章标题 -->
-    <el-row justify="center">
-      <el-col :span="20">
-        <h1 class="paper-title">
-          <span v-if="title" :style="{color:title_color}"> {{ title }}</span>
-          <span v-if="title_supp" :style="{color:title_supp_color}"> {{ title_supp }}</span>
-        </h1>
-      </el-col>
-    </el-row>
+      <!-- Subtitle -->
+      <p class="hero-subtitle">{{ subtitle }}</p>
 
-    <!-- 作者名单 -->
-    <el-row justify="center">
-      <a :href=author.homepage v-for="author in authors">
-        <el-button class="title-button" type="primary" text>
-          <el-avatar v-if="author.icon" :size="40" :src="author.icon" />
-          <span class="author">
-            {{ author.name }}<sup v-if="author.address_flag" class="name_sup">{{ author.address_flag }}</sup>
-          </span>
-        </el-button>
-      </a>
-    </el-row>
-
-    <!-- 地址名单 -->
-    <el-row justify="center">
-      <a :href=address.homepage v-for="address in addresses">
-        <el-button class="title-button" type="primary" text>
-          <el-avatar v-if="address.icon" :size="40" :src="address.icon" />
-          <span class="address">
-            <sup v-if="address.address_flag" class="address_sup">{{ address.address_flag }}</sup>{{ address.name }}
-          </span>
-        </el-button>
-      </a>
-    </el-row>
-
-    <!-- 共一和通讯提示内容 -->
-    <el-row justify="center" class="con-cor">
-        {{ con_and_corresponding_author }}
-    </el-row>
-
-    <!-- 强调内容 -->
-    <el-row justify="center" class="emphasis" v-for="emphasis in emphases">
-        {{ emphasis }}
-    </el-row>
-
-    <!-- 提供引导按钮 -->
-    <el-row justify="center" style="margin-bottom: 20px;">
-      <el-col :span="20">
-        <el-row justify="center">
-          <a :href=button.link v-for="button in buttons">
-            <el-button class="guidance-button" size="default" :color="btn_color" :disabled="button.disabled" round>
-              <el-icon :size="18">
-                <component :is="button.component" />
-              </el-icon>
-              <span class="btn-text">{{ button.name }}</span>
-            </el-button>
+      <!-- Authors -->
+      <div class="hero-authors">
+        <template v-for="(author, idx) in authors" :key="author.name">
+          <a :href="author.homepage" class="author-link">
+            {{ author.name }}<sup v-if="author.flags">{{ author.flags }}</sup>
           </a>
-        </el-row>
-      </el-col>
-    </el-row>
+          <span v-if="idx < authors.length - 1" class="author-sep">,&nbsp;</span>
+        </template>
+      </div>
 
-  </div>
+      <!-- Affiliations -->
+      <div class="hero-affiliations">
+        <template v-for="(aff, idx) in affiliations" :key="aff.flag">
+          <span class="affiliation">
+            <sup>{{ aff.flag }}</sup>{{ aff.name }}
+          </span>
+          <span v-if="idx < affiliations.length - 1" class="aff-sep">&nbsp;&nbsp;</span>
+        </template>
+      </div>
+
+      <!-- Footnote -->
+      <div class="hero-footnote">{{ footnote }}</div>
+
+      <!-- Buttons -->
+      <div class="hero-buttons">
+        <a v-for="btn in buttons" :key="btn.name" :href="btn.href" class="hero-btn">
+          <el-icon :size="16"><component :is="btn.icon" /></el-icon>
+          <span>{{ btn.name }}</span>
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats">
+        <div v-for="stat in stats" :key="stat.label" class="stat-card">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </template>
 
 <style scoped>
-
-/* 文章标题字体、字间距、居中排布、字号 */
-.paper-title {
-  font-family: "MyFont", Verdana, sans-serif;
-  letter-spacing: 2px;
-  font-size: 42px;
-  margin: 32px;
+.hero {
+  padding: 100px 24px 48px;
   text-align: center;
 }
 
-/* 姓名和地址按钮 */
-.title-button {
-  margin: 10px 3px;
+.hero-inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
 }
 
-/* 姓名和地址按钮光标悬浮 */
-.title-button:hover {
-  margin: 10px 8px;
+/* Badge */
+.hero-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  margin-bottom: 24px;
 }
 
-/* 引导材料按钮 */
-.guidance-button {
-  margin: 8px 5px;
-  box-shadow: #d8d8d8 1px 1px 1px 1px;
+/* Title — gradient art text */
+.hero-title {
+  font-family: "MyFont", -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #CF7359 0%, #CF7359 70%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
-/* 姓名属性 */
-.author {
+/* Subtitle */
+.hero-subtitle {
   font-size: 18px;
-  margin-left: 3px;
+  color: var(--text-secondary);
+  margin: 0 0 32px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* 姓名上标属性 */
-.name_sup {
-  color: #606266; 
-  margin-left: 3px;
+/* Authors */
+.hero-authors {
+  margin-bottom: 8px;
+  font-size: 17px;
+  line-height: 1.8;
 }
 
-/* 地址属性 */
-.address {
-  font-size: 18px;
-}
-
-/* 地址上标属性 */
-.address_sup {
-  color: #606266; 
-  margin-right: 1px;
-}
-
-/* 头像属性 */
-.el-avatar {
-  margin-right: 6px;
-  box-shadow: #b7b7b7 0px 0px 3px 1px;
-}
-
-/* 共一和通讯文字属性 */
-.con-cor {
-  font-family: Arial;
-  font-size: 14px;
-  margin: 18px 0px;
-  text-align: center;
-}
-
-/* 强调信息属性 */
-.emphasis {
-  color: chocolate;
-  font-weight: bold;
-  margin: 8px;
-  font-size: 22px;
-  text-align: center;
-}
-
-/* 引导材料按钮文字属性 */
-.btn-text {
-  font-size: 18px;
-  color: #ffffff;
-}
-
-.el-alert {
-  margin: 10px 0 0;
-}
-
-.el-alert:first-child {
-  margin: 0;
-}
-
-.logo {
-  width: 150px; 
-  height: 150px;
-  border-radius: 50%;
-  box-shadow: #ced3dc 0px 0px 3px 2px;
-  margin-top: 40px;
-}
-
-/* 手机端链接样式处理 */
-a:-webkit-any-link {
+.author-link {
+  color: var(--text-primary);
   text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.author-link:hover {
+  color: var(--accent);
+}
+.author-link sup {
+  color: var(--text-tertiary);
+  margin-left: 1px;
+  font-size: 11px;
 }
 
-/* 取消鼠标焦点悬浮在链接上的颜色装饰 */
-a:hover {
-  color: inherit;
-  border-bottom: none;
+.author-sep {
+  color: var(--text-tertiary);
 }
 
-/* 链接装饰，取消下划线和链接颜色 */
-a {
-	text-decoration: None;
-	color: inherit;
+/* Affiliations */
+.hero-affiliations {
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+.affiliation sup {
+  color: var(--text-tertiary);
+  margin-right: 2px;
+  font-size: 11px;
 }
 
+/* Footnote */
+.hero-footnote {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 32px;
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+.hero-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Stats */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 20px 12px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 80px 16px 32px;
+  }
+  .hero-title {
+    font-size: 32px;
+  }
+  .hero-subtitle {
+    font-size: 15px;
+  }
+  .hero-authors {
+    font-size: 15px;
+  }
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .stat-value {
+    font-size: 22px;
+  }
+  .hero-btn {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+}
 </style>

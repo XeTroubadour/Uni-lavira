@@ -1,20 +1,21 @@
 <script setup>
 import abstract from '../mds/abstract.mdx';
+import SectionWrapper from '../SectionWrapper.vue';
 </script>
 
 <template>
-  <div>
-    <el-divider />
-
-    <el-row justify="center">
-        <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
-            <abstract />
-        </el-col>
-    </el-row>
-
-  </div>
+  <SectionWrapper id="abstract" title="Abstract">
+    <div class="abstract-content">
+      <abstract />
+    </div>
+  </SectionWrapper>
 </template>
 
 <style scoped>
-
+.abstract-content {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-primary);
+  text-align: justify;
+}
 </style>

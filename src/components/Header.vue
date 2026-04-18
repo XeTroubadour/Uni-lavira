@@ -1,129 +1,177 @@
-<script lang="ts" setup>
+<script setup>
+import { ref } from 'vue'
 
-import { ElIcon } from 'element-plus'
-import { HomeFilled, SuccessFilled } from '@element-plus/icons-vue'
+const projectName = 'Project'
 
-// 个人主页
-const home = {
-    name: "My Blog",
-    link: "https://junyaohu.github.io/",
+const navItems = [
+  { label: 'Overview', href: '#overview' },
+  { label: 'Abstract', href: '#abstract' },
+  { label: 'Method', href: '#method' },
+  { label: 'Results', href: '#results' },
+  { label: 'Demo', href: '#demo' },
+  { label: 'BibTeX', href: '#bibtex' },
+]
+
+const mobileOpen = ref(false)
+
+function toggleMobile() {
+  mobileOpen.value = !mobileOpen.value
 }
 
-// 项目主页
-const logo = {
-    name: "Template",
-    link: "#",
+function closeMobile() {
+  mobileOpen.value = false
 }
-
-// 右侧更多菜单
-const more_paper = {
-    "ExtDM": {
-        name: "ExtDM - CVPR 2024",
-        link: "https://zzcheng.top/ExtDM/",
-    },
-    "MPOT": {
-        name: "MPOT - ICCV 2023",
-        link: "https://zzcheng.top/MPOT/",
-    },
-    "ControlNet": {
-        name: "ControlNet - ICCV 2023",
-        link: "https://github.com/lllyasviel/ControlNet",
-    }
-}
-
 </script>
 
 <template>
-    <!-- 设置页首始终悬浮顶部 -->
-    <el-affix :offset="0" :style="{width: '100%'}">
-    
-    <!-- 水平导航目录 -->
-    <el-menu 
-        default-active="1"
-        class="el-menu-demo"
-        mode="horizontal"
-        :ellipsis="false"
-    >
-        <!-- 个人主页 -->
-        <el-menu-item index="0" >
-            <el-icon :size="20"><HomeFilled /></el-icon>
-            <a :href=home.link>{{ home.name }} </a>
-        </el-menu-item>
-        
-        <!-- 项目主页 -->
-        <el-menu-item index="1">
-            <el-icon :size="20"><SuccessFilled /></el-icon>
-            <a :href=logo.link>{{ logo.name }} </a>
-        </el-menu-item>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <!-- Left: project name -->
+      <a href="#" class="navbar-brand" @click="closeMobile">{{ projectName }}</a>
 
-        <!-- 更多栏目 -->
-        <el-sub-menu index="2">
-            <template #title>More</template>
-            <el-menu-item index="2-1">
-                <a :href=more_paper.ExtDM.link>{{ more_paper.ExtDM.name }}</a>
-            </el-menu-item>
-            <el-menu-item index="2-2">
-                <a :href=more_paper.MPOT.link>{{ more_paper.MPOT.name }}</a>
-            </el-menu-item>
-            <el-menu-item index="2-3">
-                <a :href=more_paper.ControlNet.link>{{ more_paper.ControlNet.name }}</a>
-            </el-menu-item>
-        </el-sub-menu>
+      <!-- Hamburger button for mobile -->
+      <button class="hamburger" :class="{ open: mobileOpen }" @click="toggleMobile" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    </el-menu>
-    </el-affix>
+      <!-- Right: nav links -->
+      <div class="navbar-links" :class="{ 'navbar-links--open': mobileOpen }">
+        <a
+          v-for="item in navItems"
+          :key="item.href"
+          :href="item.href"
+          class="nav-link"
+          @click="closeMobile"
+        >
+          {{ item.label }}
+        </a>
+      </div>
+    </div>
+  </nav>
 </template>
 
-<style>
-
-/* 导航背景 */
-.el-menu {
-	background: none;
-}
-
-/* 下拉菜单宽度 */
-.el-menu--popup {
-	min-width: 100%;
-}
-
-/* 导航背景特效和阴影 */
-.el-affix--fixed {
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-	background-image: radial-gradient(#ffffffca 1px,#ffffff 1px);
-	background-size: 3px 3px;
-}
-
-/* 水平导航高度 */
-.el-header {
-    --el-header-height: 50px;
-}
-
-</style>
-
 <style scoped>
-
-/* 水平导航左右分区 */
-.el-menu--horizontal > .el-menu-item:nth-child(2) {
-    margin-right: auto;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--bg-nav);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  height: 56px;
 }
 
-/* 水平导航高度 */
-.el-menu--horizontal {
-    --el-menu-horizontal-height: 50px;
+.navbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 24px;
 }
 
-/* 取消鼠标焦点悬浮在链接上的颜色装饰 */
-a:hover {
-  color: inherit;
-  border-bottom: none;
+.navbar-brand {
+  font-family: "MyFont", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-heading);
+  text-decoration: none;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+.navbar-brand:hover {
+  color: var(--accent);
 }
 
-/* 链接装饰，取消下划线和链接颜色 */
-a {
-	text-decoration: None;
-	color: inherit;
+.navbar-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.nav-link:hover {
+  color: var(--text-heading);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-secondary);
+  border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--bg-nav);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 12px 24px;
+    gap: 4px;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .navbar-links--open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav-link {
+    padding: 10px 12px;
+    font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
 </style>
-
-  

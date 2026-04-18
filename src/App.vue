@@ -15,14 +15,14 @@ export default {
 </script>
 
 <template>
-    <div>
-      
+    <div class="app-root">
+
       <el-container>
         <el-header><Header/></el-header>
         <el-main><Main/></el-main>
         <el-footer><Footer/></el-footer>
       </el-container>
-      
+
       <!-- 回到顶部 -->
       <el-backtop :right="40" :bottom="80" />
     </div>
@@ -30,17 +30,23 @@ export default {
 
 <style>
 
+/* ============================================
+   Global Typography — Dark Theme
+   ============================================ */
+
 h1 {
   font-family: "MyFont", Verdana, sans-serif;
   letter-spacing: 2px;
   font-size: 28px;
   margin: 0px;
   text-align: center;
+  color: var(--text-heading);
 }
 
 h2, h3, h4, h5, h6 {
   font-family: "MyFont", Verdana, sans-serif;
   letter-spacing: 2px;
+  color: var(--text-heading);
 }
 
 .el-header {
@@ -54,21 +60,25 @@ h2, h3, h4, h5, h6 {
 p, li {
   font-size: 16px;
   line-height: 1.75rem;
+  color: var(--text-primary);
 }
 
+/* Code — dark */
 code {
   font-family: 'Consolas', monospace;
   border-radius: 5px;
   padding: 2px 5px;
-  background: #f2f2f2;
-  color: black;
+  background: var(--bg-code);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
 }
 
 pre {
-  border-radius: 5px;
-  padding: 10px;
-  background: #f2f2f2;
-  line-height: 1.4rem;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--bg-code);
+  line-height: 1.5rem;
+  border: 1px solid var(--border-subtle);
 }
 
 pre:not(pre[id=bibtex]) {
@@ -76,51 +86,59 @@ pre:not(pre[id=bibtex]) {
 }
 
 pre code {
-  font-size: 16px;
-  color: black;
+  font-size: 14px;
+  color: var(--text-primary);
   border: none;
   padding: 0px;
+  background: transparent;
 }
 
+/* Blockquote — dark */
 blockquote {
-  border-left: 5px solid #bcbcbc;
-  padding: 10px 20px 10px 20px;
+  border-left: 3px solid var(--accent);
+  padding: 10px 20px;
   margin: 0px;
-  background: #f6f6f6;
+  background: var(--bg-card);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 blockquote > p {
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
+  color: var(--text-secondary);
 }
 
-/* 链接颜色装饰 */
+/* Links — accent */
 a {
-  color: #3273dc;
+  color: var(--accent);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-/* 鼠标焦点悬浮在链接上的颜色装饰 */
 a:hover {
-  color: #848484;
-  border-bottom: dotted;
+  color: var(--accent-hover);
+  border-bottom: none;
 }
 
+/* Images */
 p > img {
   width: 80%;
   display: block;
   margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 1px 1px 4px 1px #afafaf;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-subtle);
 }
 
+/* Tables — dark */
 table {
   border-collapse: collapse;
   width: max-content;
   max-width: 100%;
   margin: 0 auto;
-  display:block;
-  overflow-x:auto;
+  display: block;
+  overflow-x: auto;
+  color: var(--text-primary);
 }
 
 thead {
@@ -129,7 +147,7 @@ thead {
   border-left-width: 0px;
   border-right-width: 0px;
   border-style: solid;
-  border-color: rgb(0 0 0);
+  border-color: var(--border-subtle);
 }
 
 tbody tr:last-child {
@@ -138,17 +156,26 @@ tbody tr:last-child {
   border-left-width: 0px;
   border-right-width: 0px;
   border-style: solid;
-  border-color: rgb(0 0 0);
+  border-color: var(--border-subtle);
+}
+
+th {
+  color: var(--text-heading);
 }
 
 th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+/* KaTeX dark text */
+.katex {
+  color: var(--text-primary);
 }
 
 </style>
