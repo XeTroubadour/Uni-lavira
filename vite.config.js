@@ -23,7 +23,7 @@ export default defineConfig({
       ],
     }),
   ],
-  base:'/Uni-lavira',
+  base:'/Uni-LaViRA',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
